@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import {
   Mail,
   Github,
   Linkedin,
   BookOpen,
+  Sun,
+  Moon,
+  Menu,
+  X,
 } from "lucide-react";
 
 const socialLinks = [
@@ -29,53 +34,92 @@ const navItems = [
 interface HeaderProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
-  onNavigateHome: () => void;
+  isDark: boolean;
+  onToggleTheme: () => void;
 }
 
 export default function Header({
   activeTab,
   onTabChange,
+  isDark,
+  onToggleTheme,
 }: HeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (tab: string) => {
+    onTabChange(tab);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header
       className="w-full"
-      style={{ borderBottom: "1px solid #eaeaea" }}
+      style={{ borderBottom: "1px solid var(--border-primary)" }}
     >
       <div
-        className="mx-auto px-6 flex items-center justify-between"
-        style={{ maxWidth: "680px", height: "48px" }}
+        className="mx-auto flex items-center justify-between"
+        style={{ maxWidth: "680px", height: "48px", padding: "0 24px" }}
       >
-        {/* Social Icons - Left (Animation 5: scale on hover) */}
-        <div className="flex items-center gap-3">
-          {socialLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              style={{ color: "#666666" }}
-              className="social-icon"
-              aria-label={link.label}
-            >
-              <link.icon size={15} strokeWidth={1.5} />
-            </a>
-          ))}
+        {/* Left: Social icons + Theme toggle */}
+        <div className="flex items-center gap-2">
+          {/* Social Icons — hidden on mobile */}
+          <div className="hidden sm:flex items-center gap-3">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                style={{ color: "var(--text-secondary)" }}
+                className="social-icon"
+                aria-label={link.label}
+              >
+                <link.icon size={15} strokeWidth={1.5} />
+              </a>
+            ))}
+          </div>
+
+          {/* Theme toggle */}
+          <button
+            onClick={onToggleTheme}
+            className="theme-toggle"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {isDark ? (
+              <Sun size={16} strokeWidth={1.5} />
+            ) : (
+              <Moon size={16} strokeWidth={1.5} />
+            )}
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            className="sm:hidden theme-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <X size={18} strokeWidth={1.5} />
+            ) : (
+              <Menu size={18} strokeWidth={1.5} />
+            )}
+          </button>
         </div>
 
-        {/* Nav Links - Right (Animation 2: underline slide) */}
-        <nav className="flex items-center" style={{ gap: "14px" }}>
+        {/* Desktop Nav Links */}
+        <nav className="hidden sm:flex items-center" style={{ gap: "14px" }}>
           {navItems.map((item) => (
             <a
               key={item}
               href={`#${item}`}
               onClick={(e) => {
                 e.preventDefault();
-                onTabChange(item);
+                handleNavClick(item);
               }}
               className={`nav-link ${activeTab === item ? "nav-active" : ""}`}
               style={{
                 fontSize: "14px",
-                color: activeTab === item ? "#b833ff" : "#666666",
+                color: activeTab === item ? "var(--accent)" : "var(--text-secondary)",
                 fontWeight: activeTab === item ? 500 : 400,
                 whiteSpace: "nowrap",
                 transition: "color 0.15s ease",
@@ -86,6 +130,61 @@ export default function Header({
           ))}
         </nav>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div
+          className="sm:hidden mobile-menu"
+          style={{
+            borderTop: "1px solid var(--border-primary)",
+            background: "var(--bg-primary)",
+          }}
+        >
+          <div style={{ maxWidth: "680px", margin: "0 auto", padding: "12px 24px 16px" }}>
+            {/* Mobile social icons row */}
+            <div className="flex items-center gap-4" style={{ marginBottom: "12px" }}>
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  style={{ color: "var(--text-secondary)" }}
+                  className="social-icon"
+                  aria-label={link.label}
+                >
+                  <link.icon size={16} strokeWidth={1.5} />
+                </a>
+              ))}
+            </div>
+
+            {/* Mobile nav links */}
+            <nav className="flex flex-col" style={{ gap: "2px" }}>
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item);
+                  }}
+                  style={{
+                    fontSize: "15px",
+                    color: activeTab === item ? "var(--accent)" : "var(--text-secondary)",
+                    fontWeight: activeTab === item ? 500 : 400,
+                    padding: "8px 0",
+                    borderBottom: "1px solid var(--border-secondary)",
+                    textDecoration: "none",
+                    transition: "color 0.15s ease",
+                  }}
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

@@ -50,42 +50,42 @@ export default function TeachingPage() {
     return (
       <div style={{ maxWidth: "680px", margin: "0 auto", padding: "32px 24px 64px" }}>
         <div className="stagger-in" style={{ animationDelay: "0ms" }}>
-          <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#b833ff", marginBottom: "4px" }}>
+          <h1 style={{ fontSize: "28px", fontWeight: 700, color: "var(--accent)", marginBottom: "4px" }}>
             teaching
           </h1>
-          <p style={{ fontSize: "16px", color: "#666666", marginBottom: "24px" }}>
+          <p style={{ fontSize: "16px", color: "var(--text-secondary)", marginBottom: "24px" }}>
             tutorials, documentation, mentoring, educational resources, ...
           </p>
         </div>
 
-        <p style={{ fontSize: "16px", lineHeight: 1.7, color: "#333333", marginBottom: "28px" }}>
+        <p style={{ fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)", marginBottom: "28px" }}>
           I am passionate about sharing knowledge and helping others learn. This includes creating educational content, mentoring aspiring developers, and contributing to open-source educational resources. For my open-source work, please see{" "}
           <a href="#" onClick={(e) => { e.preventDefault(); }} className="inline-link">/opensource</a>.
         </p>
 
         {firebaseData.map((item, idx) => (
-          <div key={item.id} className="stagger-in" style={{ animationDelay: `${(idx + 1) * 60}ms`, marginBottom: "24px", paddingBottom: "16px", borderBottom: "1px solid #f0f0f0" }}>
-            <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#333333", marginBottom: "2px" }}>
+          <div key={item.id} className="stagger-in" style={{ animationDelay: `${(idx + 1) * 60}ms`, marginBottom: "24px", paddingBottom: "16px", borderBottom: "1px solid var(--border-secondary)" }}>
+            <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "2px" }}>
               <a href={item.orgLink} className="inline-link">{item.orgName}</a>
             </h3>
             {item.role && (
-              <p style={{ fontSize: "16px", color: "#333333", marginBottom: "2px" }}>{item.role}</p>
+              <p style={{ fontSize: "16px", color: "var(--text-primary)", marginBottom: "2px" }}>{item.role}</p>
             )}
-            <p style={{ fontSize: "13px", color: "#999999", marginBottom: "8px" }}>
+            <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "8px" }}>
               {item.date} | {item.location}
             </p>
             {item.bullets && (
               <div
-                style={{ fontSize: "16px", lineHeight: 1.7, color: "#333333" }}
+                style={{ fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)" }}
                 dangerouslySetInnerHTML={{ __html: item.bullets }}
               />
             )}
           </div>
         ))}
 
-        <div style={{ marginTop: "16px", padding: "24px", backgroundColor: "#fafafa", borderRadius: "8px", border: "1px dashed #e0e0e0" }}>
-          <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#666666" }}>
-            <b style={{ color: "#333333" }}>Coming soon:</b> I am working on structured learning material for quantitative finance and AI, including interactive notebooks, video tutorials, and comprehensive developer guides. Stay tuned for updates on the blog.
+        <div style={{ marginTop: "16px", padding: "24px", backgroundColor: "var(--bg-secondary)", borderRadius: "8px", border: "1px dashed var(--border-tertiary)" }}>
+          <p style={{ fontSize: "14px", lineHeight: 1.7, color: "var(--text-secondary)" }}>
+            <b style={{ color: "var(--text-primary)" }}>Coming soon:</b> I am working on structured learning material for quantitative finance and AI, including interactive notebooks, video tutorials, and comprehensive developer guides. Stay tuned for updates on the blog.
           </p>
         </div>
       </div>
@@ -96,33 +96,33 @@ export default function TeachingPage() {
   return (
     <div style={{ maxWidth: "680px", margin: "0 auto", padding: "32px 24px 64px" }}>
       <div className="stagger-in" style={{ animationDelay: "0ms" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#b833ff", marginBottom: "4px" }}>
+        <h1 style={{ fontSize: "28px", fontWeight: 700, color: "var(--accent)", marginBottom: "4px" }}>
           teaching
         </h1>
-        <p style={{ fontSize: "16px", color: "#666666", marginBottom: "24px" }}>
+        <p style={{ fontSize: "16px", color: "var(--text-secondary)", marginBottom: "24px" }}>
           tutorials, documentation, mentoring, educational resources, ...
         </p>
       </div>
 
-      <p style={{ fontSize: "16px", lineHeight: 1.7, color: "#333333", marginBottom: "28px" }}>
+      <p style={{ fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)", marginBottom: "28px" }}>
         I am passionate about sharing knowledge and helping others learn. This includes creating educational content, mentoring aspiring developers, and contributing to open-source educational resources. For my open-source work, please see{" "}
         <a href="#" onClick={(e) => { e.preventDefault(); }} className="inline-link">/opensource</a>.
       </p>
 
       {staticTeachingEntries.map((entry, idx) => (
-        <div key={idx} className="stagger-in" style={{ animationDelay: `${(idx + 1) * 60}ms`, marginBottom: "24px", paddingBottom: "16px", borderBottom: "1px solid #f0f0f0" }}>
-          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#333333", marginBottom: "2px" }}>
+        <div key={idx} className="stagger-in" style={{ animationDelay: `${(idx + 1) * 60}ms`, marginBottom: "24px", paddingBottom: "16px", borderBottom: "1px solid var(--border-secondary)" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "2px" }}>
             <a href="#" className="inline-link">{entry.org}</a>
           </h3>
           {entry.role && (
-            <p style={{ fontSize: "16px", color: "#333333", marginBottom: "2px" }}>{entry.role}</p>
+            <p style={{ fontSize: "16px", color: "var(--text-primary)", marginBottom: "2px" }}>{entry.role}</p>
           )}
-          <p style={{ fontSize: "13px", color: "#999999", marginBottom: "8px" }}>
+          <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "8px" }}>
             {entry.date} | {entry.location}
           </p>
           <ul style={{ paddingLeft: "18px", margin: 0, listStyleType: "disc" }}>
             {entry.bullets.map((b, bi) => (
-              <li key={bi} style={{ fontSize: "16px", lineHeight: 1.7, color: "#333333", marginBottom: "6px" }}>
+              <li key={bi} style={{ fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)", marginBottom: "6px" }}>
                 {b}
               </li>
             ))}
@@ -130,9 +130,9 @@ export default function TeachingPage() {
         </div>
       ))}
 
-      <div style={{ marginTop: "16px", padding: "24px", backgroundColor: "#fafafa", borderRadius: "8px", border: "1px dashed #e0e0e0" }}>
-        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#666666" }}>
-          <b style={{ color: "#333333" }}>Coming soon:</b> I am working on structured learning material for quantitative finance and AI, including interactive notebooks, video tutorials, and comprehensive developer guides. Stay tuned for updates on the blog.
+      <div style={{ marginTop: "16px", padding: "24px", backgroundColor: "var(--bg-secondary)", borderRadius: "8px", border: "1px dashed var(--border-tertiary)" }}>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "var(--text-secondary)" }}>
+          <b style={{ color: "var(--text-primary)" }}>Coming soon:</b> I am working on structured learning material for quantitative finance and AI, including interactive notebooks, video tutorials, and comprehensive developer guides. Stay tuned for updates on the blog.
         </p>
       </div>
     </div>

@@ -168,6 +168,13 @@ export default function HashtagGraph({
     const centerNode = nodes[0];
     if (!centerNode) return;
 
+    // Read theme colors from CSS variables
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const lineColor = isDark ? '120, 120, 120' : '200, 200, 200';
+    const inactiveFill = isDark ? '#555555' : '#bbbbbb';
+    const fadedFill = isDark ? '#444444' : '#dddddd';
+    const labelColor = isDark ? '180, 180, 180' : '130, 130, 130';
+
     // Draw connections from center to each tag
     nodes.slice(1).forEach((node) => {
       const isActive = activeTag === node.label;
@@ -179,7 +186,7 @@ export default function HashtagGraph({
       ctx.lineTo(node.x, node.y);
       ctx.strokeStyle = isActive
         ? `rgba(184, 51, 255, ${opacity})`
-        : `rgba(200, 200, 200, ${opacity})`;
+        : `rgba(${lineColor}, ${opacity})`;
       ctx.lineWidth = isActive ? 1.5 : 0.8;
       ctx.stroke();
     });
@@ -200,7 +207,7 @@ export default function HashtagGraph({
       ctx.beginPath();
       ctx.moveTo(nodeA.x, nodeA.y);
       ctx.lineTo(nodeB.x, nodeB.y);
-      ctx.strokeStyle = `rgba(200, 200, 200, ${opacity})`;
+      ctx.strokeStyle = `rgba(${lineColor}, ${opacity})`;
       ctx.lineWidth = 0.5;
       ctx.stroke();
     }
@@ -267,8 +274,8 @@ export default function HashtagGraph({
         : isHovered
         ? "#d4a0ff"
         : isAnyActive
-        ? "#dddddd"
-        : "#bbbbbb";
+        ? fadedFill
+        : inactiveFill;
       ctx.fill();
 
       if (isActive || isHovered) {
@@ -284,7 +291,7 @@ export default function HashtagGraph({
       ctx.font = `${isActive ? 600 : 400} 11px Inter, sans-serif`;
       ctx.fillStyle = isActive
         ? `rgba(184, 51, 255, ${labelOpacity})`
-        : `rgba(130, 130, 130, ${labelOpacity})`;
+        : `rgba(${labelColor}, ${labelOpacity})`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 

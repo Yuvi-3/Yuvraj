@@ -41,7 +41,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
 };
 
 function RepoCard({ repo }: { repo: GitHubRepo }) {
-  const langColor = LANGUAGE_COLORS[repo.language] || "#999999";
+  const langColor = LANGUAGE_COLORS[repo.language] || "var(--text-muted)";
   const dateStr = new Date(repo.updatedAt).toLocaleDateString("en-US", {
     month: "short",
     year: "numeric",
@@ -51,17 +51,17 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
     <div
       className="hover-card"
       style={{
-        border: "1px solid #eaeaea",
+        border: "1px solid var(--border-primary)",
         borderRadius: "8px",
         padding: "20px",
         marginBottom: "12px",
         transition: "border-color 0.2s",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = "#d0d0d0";
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--card-border-hover)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = "#eaeaea";
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--border-primary)";
       }}
     >
       {/* Header: name + GitHub link */}
@@ -77,7 +77,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
           style={{
             fontSize: "16px",
             fontWeight: 600,
-            color: "#333333",
+            color: "var(--text-primary)",
             lineHeight: 1.3,
             display: "flex",
             alignItems: "center",
@@ -89,7 +89,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
               href={repo.homepage}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#333333", textDecoration: "none" }}
+              style={{ color: "var(--text-primary)", textDecoration: "none" }}
             >
               {repo.name}
             </a>
@@ -101,7 +101,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
           href={repo.url}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#666666", display: "flex", alignItems: "center" }}
+          style={{ color: "var(--text-secondary)", display: "flex", alignItems: "center" }}
           title="View on GitHub"
         >
           <Github size={16} strokeWidth={1.5} />
@@ -114,7 +114,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
           style={{
             fontSize: "14px",
             lineHeight: 1.6,
-            color: "#666666",
+            color: "var(--text-secondary)",
             marginBottom: "12px",
           }}
         >
@@ -130,7 +130,7 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
           gap: "16px",
           flexWrap: "wrap",
           fontSize: "13px",
-          color: "#999999",
+          color: "var(--text-muted)",
         }}
       >
         {repo.language && (
@@ -170,8 +170,8 @@ function RepoCard({ repo }: { repo: GitHubRepo }) {
               key={topic}
               style={{
                 fontSize: "11px",
-                color: "#b833ff",
-                backgroundColor: "#f0f0ff",
+                color: "var(--accent)",
+                backgroundColor: "var(--tag-bg)",
                 padding: "2px 8px",
                 borderRadius: "12px",
               }}
@@ -190,13 +190,13 @@ function EmptyState({ message }: { message: string }) {
     <div
       style={{
         padding: "24px",
-        border: "1px dashed #e0e0e0",
+        border: "1px dashed var(--border-tertiary)",
         borderRadius: "8px",
-        backgroundColor: "#fafafa",
+        backgroundColor: "var(--bg-secondary)",
         marginBottom: "32px",
       }}
     >
-      <p style={{ fontSize: "14px", color: "#999999" }}>{message}</p>
+      <p style={{ fontSize: "14px", color: "var(--text-muted)" }}>{message}</p>
     </div>
   );
 }
@@ -229,7 +229,7 @@ export default function OpenSourcePage() {
         style={{
           fontSize: "28px",
           fontWeight: 700,
-          color: "#b833ff",
+          color: "var(--accent)",
           marginBottom: "4px",
           animationDelay: "0ms",
         }}
@@ -240,7 +240,7 @@ export default function OpenSourcePage() {
         style={{
           fontSize: "16px",
           fontWeight: 400,
-          color: "#666666",
+          color: "var(--text-secondary)",
           marginBottom: "24px",
         }}
       >
@@ -248,14 +248,14 @@ export default function OpenSourcePage() {
       </p>
 
       {loading && (
-        <p style={{ fontSize: "16px", color: "#999999" }}>
+        <p style={{ fontSize: "16px", color: "var(--text-muted)" }}>
           Loading repositories from GitHub...
         </p>
       )}
 
       {error && (
         <div>
-          <p style={{ fontSize: "16px", color: "#999999", marginBottom: "16px" }}>
+          <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "16px" }}>
             Could not load live repositories. Showing static info below.
           </p>
         </div>
@@ -288,7 +288,7 @@ export default function OpenSourcePage() {
             style={{
               fontSize: "24px",
               fontWeight: 600,
-              color: "#333333",
+              color: "var(--text-primary)",
               marginBottom: "16px",
               animationDelay: "120ms",
             }}
@@ -299,7 +299,7 @@ export default function OpenSourcePage() {
             style={{
               fontSize: "14px",
               lineHeight: 1.7,
-              color: "#666666",
+              color: "var(--text-secondary)",
               marginBottom: "16px",
             }}
           >
@@ -321,7 +321,7 @@ export default function OpenSourcePage() {
             style={{
               fontSize: "24px",
               fontWeight: 600,
-              color: "#333333",
+              color: "var(--text-primary)",
               marginBottom: "16px",
               animationDelay: "240ms",
             }}
@@ -332,7 +332,7 @@ export default function OpenSourcePage() {
             style={{
               fontSize: "14px",
               lineHeight: 1.7,
-              color: "#666666",
+              color: "var(--text-secondary)",
               marginBottom: "16px",
             }}
           >
@@ -356,7 +356,7 @@ export default function OpenSourcePage() {
                 style={{
                   fontSize: "24px",
                   fontWeight: 600,
-                  color: "#333333",
+                  color: "var(--text-primary)",
                   marginBottom: "16px",
                   animationDelay: "360ms",
                 }}

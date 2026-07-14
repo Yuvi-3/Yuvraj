@@ -16,70 +16,88 @@ import GrantsPage from "@/components/pages/GrantsPage";
 import CvPage from "@/components/pages/CvPage";
 import type { BlogPost } from "@/data/blogs";
 
-const FADE_DURATION = 180; // ms per half (out + in = ~360ms total)
+const LOADING_DURATION = 100; // ms for the loading screen
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("about");
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [blogData, setBlogData] = useState<BlogPost[] | null>(null);
-  const [transitioning, setTransitioning] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const pendingTab = useRef<string | null>(null);
 
+  // Theme
+  const [isDark, setIsDark] = useState(false);
+  const [themeReady, setThemeReady] = useState(false);
+
+  // Loading screen
+  const [showLoading, setShowLoading] = useState(false);
+  const [loadingFading, setLoadingFading] = useState(false);
+  const pendingAction = useRef<(() => void) | null>(null);
+  const isTransitioning = useRef(false);
+
+  // Init theme from localStorage
   useEffect(() => {
-    if (!transitioning) return;
-    // Phase 1: content faded out → swap tab → fade in
-    const timer = setTimeout(() => {
-      if (pendingTab.current) {
-        setActiveTab(pendingTab.current);
-        setSelectedPostId(null);
-        pendingTab.current = null;
-      }
-      // Fade in
-      setVisible(true);
-      setTransitioning(false);
-    }, FADE_DURATION);
-    return () => clearTimeout(timer);
-  }, [transitioning]);
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const dark = saved === "dark" || (!saved && prefersDark);
+    setIsDark(dark);
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    setThemeReady(true);
+  }, []);
+
+  // Apply theme changes
+  useEffect(() => {
+    if (!themeReady) return;
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }, [isDark, themeReady]);
+
+  const toggleTheme = useCallback(() => {
+    setIsDark((prev) => !prev);
+  }, []);
+
+  const executeTransition = useCallback(() => {
+    if (!pendingAction.current) return;
+    pendingAction.current();
+    pendingAction.current = null;
+
+    // Keep loading screen visible briefly, then fade out
+    setTimeout(() => {
+      setLoadingFading(true);
+      setTimeout(() => {
+        setShowLoading(false);
+        setLoadingFading(false);
+        isTransitioning.current = false;
+      }, 80);
+    }, 20);
+  }, []);
+
+  const startTransition = useCallback((action: () => void) => {
+    if (isTransitioning.current) return;
+    isTransitioning.current = true;
+    pendingAction.current = action;
+    setShowLoading(true);
+    setLoadingFading(false);
+    window.scrollTo({ top: 0 });
+    setTimeout(executeTransition, LOADING_DURATION);
+  }, [executeTransition]);
 
   const handleTabChange = useCallback((tab: string) => {
-    if (tab === activeTab && !selectedPostId) return;
-    if (transitioning) return;
-    pendingTab.current = tab;
-    // Fade out
-    setVisible(false);
-    setTransitioning(true);
-    window.scrollTo({ top: 0 });
-  }, [activeTab, selectedPostId, transitioning]);
+    startTransition(() => {
+      setActiveTab(tab);
+      setSelectedPostId(null);
+    });
+  }, [startTransition]);
 
   const handleOpenPost = useCallback((postId: string) => {
-    if (transitioning) return;
-    pendingTab.current = null; // no tab change, just post open
-    setVisible(false);
-    setTransitioning(true);
-    // Will set post after fade-out via a separate effect
-    const timer = setTimeout(() => {
+    startTransition(() => {
       setSelectedPostId(postId);
-      setVisible(true);
-      setTransitioning(false);
-      window.scrollTo({ top: 0 });
-    }, FADE_DURATION);
-    // Store cleanup ref isn't needed since this is a one-shot
-    return () => clearTimeout(timer);
-  }, [transitioning]);
+    });
+  }, [startTransition]);
 
   const handleBackToBlog = useCallback(() => {
-    if (transitioning) return;
-    setVisible(false);
-    setTransitioning(true);
-    const timer = setTimeout(() => {
+    startTransition(() => {
       setSelectedPostId(null);
-      setVisible(true);
-      setTransitioning(false);
-      window.scrollTo({ top: 0 });
-    }, FADE_DURATION);
-    return () => clearTimeout(timer);
-  }, [transitioning]);
+    });
+  }, [startTransition]);
 
   const handleBlogData = useCallback((posts: BlogPost[]) => {
     setBlogData(posts);
@@ -106,23 +124,28 @@ export default function Home() {
   return (
     <div
       className="min-h-screen flex flex-col"
-      style={{ backgroundColor: "#ffffff" }}
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
       <ScrollProgress />
       <Header
         activeTab={selectedPostId ? "blog" : activeTab}
         onTabChange={handleTabChange}
+        isDark={isDark}
+        onToggleTheme={toggleTheme}
       />
 
-      <main className="flex-1" style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(6px)",
-        transition: `opacity ${FADE_DURATION}ms ease, transform ${FADE_DURATION}ms ease`,
-      }}>
+      <main className="flex-1">
         {renderPage()}
       </main>
 
       <Footer />
+
+      {/* Loading screen overlay */}
+      {showLoading && (
+        <div className={`loading-screen ${loadingFading ? "fade-out" : ""}`}>
+          <span className="loading-logo">Y</span>
+        </div>
+      )}
     </div>
   );
 }

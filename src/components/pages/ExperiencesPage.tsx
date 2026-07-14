@@ -12,7 +12,7 @@ import { fetchExperiences, type ExperienceItem } from "@/lib/firebase";
 function NestedBullet({ text }: { text: string }) {
   const lines = text.split("\n");
   return (
-    <li style={{ fontSize: "16px", lineHeight: 1.7, color: "#333333", marginBottom: "6px" }}>
+    <li style={{ fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)", marginBottom: "6px" }}>
       {lines.map((line, i) => {
         const isSubItem = line.startsWith("  - ") || line.startsWith("    - ");
         const trimmed = line.replace(/^[\s-]+/, "");
@@ -66,7 +66,7 @@ export default function ExperiencesPage() {
             style={{
               fontSize: "28px",
               fontWeight: 700,
-              color: "#b833ff",
+              color: "var(--accent)",
               marginBottom: "4px",
             }}
           >
@@ -76,7 +76,7 @@ export default function ExperiencesPage() {
             style={{
               fontSize: "16px",
               lineHeight: 1.7,
-              color: "#333333",
+              color: "var(--text-primary)",
               marginBottom: "28px",
             }}
           >
@@ -91,35 +91,35 @@ export default function ExperiencesPage() {
               style={{
                 fontSize: "24px",
                 fontWeight: 600,
-                color: "#333333",
+                color: "var(--text-primary)",
                 marginBottom: "16px",
                 paddingBottom: "6px",
                 animationDelay: `${(si + 1) * 60}ms`,
                 ...(si === 0
-                  ? { borderBottom: "1px solid #eaeaea" }
-                  : { borderTop: "1px solid #eaeaea", paddingTop: "12px" }),
+                  ? { borderBottom: "1px solid var(--border-primary)" }
+                  : { borderTop: "1px solid var(--border-primary)", paddingTop: "12px" }),
               }}
             >
               {section.title}
             </h2>
             {section.items.map((item, itemIdx) => (
               <div key={item.id} className="stagger-in" style={{ marginBottom: "28px", animationDelay: `${(si + 1) * 60 + (itemIdx + 1) * 60}ms` }}>
-                <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#333333", marginBottom: "2px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "2px" }}>
                   <a href={item.institutionLink} className="inline-link">
                     {item.institution}
                   </a>
                 </h3>
                 {item.degree && (
-                  <p style={{ fontSize: "16px", color: "#333333", marginBottom: "3px" }}>
+                  <p style={{ fontSize: "16px", color: "var(--text-primary)", marginBottom: "3px" }}>
                     {item.degree}
                   </p>
                 )}
-                <p style={{ fontSize: "13px", color: "#999999", marginBottom: "10px" }}>
+                <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "10px" }}>
                   {item.dateRange} | {item.location}
                 </p>
                 {item.details && (
                   <div
-                    style={{ fontSize: "16px", lineHeight: 1.7, color: "#333333" }}
+                    style={{ fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)" }}
                     dangerouslySetInnerHTML={{ __html: item.details }}
                   />
                 )}
@@ -140,7 +140,7 @@ export default function ExperiencesPage() {
           style={{
             fontSize: "28px",
             fontWeight: 700,
-            color: "#b833ff",
+            color: "var(--accent)",
             marginBottom: "4px",
           }}
         >
@@ -152,7 +152,7 @@ export default function ExperiencesPage() {
           style={{
             fontSize: "16px",
             lineHeight: 1.7,
-            color: "#333333",
+            color: "var(--text-primary)",
             marginBottom: "28px",
           }}
         >
@@ -166,10 +166,10 @@ export default function ExperiencesPage() {
         style={{
           fontSize: "24px",
           fontWeight: 600,
-          color: "#333333",
+          color: "var(--text-primary)",
           marginBottom: "16px",
           paddingBottom: "6px",
-          borderBottom: "1px solid #eaeaea",
+          borderBottom: "1px solid var(--border-primary)",
           animationDelay: "60ms",
         }}
       >
@@ -181,15 +181,15 @@ export default function ExperiencesPage() {
           className="stagger-in"
           style={{ marginBottom: "28px", animationDelay: `${60 + (idx + 1) * 60}ms` }}
         >
-          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#333333", marginBottom: "2px" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "2px" }}>
             <a href={edu.institutionLink} className="inline-link">
               {edu.institution}
             </a>
           </h3>
-          <p style={{ fontSize: "16px", color: "#333333", marginBottom: "3px" }}>
+          <p style={{ fontSize: "16px", color: "var(--text-primary)", marginBottom: "3px" }}>
             {edu.degree}
           </p>
-          <p style={{ fontSize: "13px", color: "#999999", marginBottom: "10px" }}>
+          <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "10px" }}>
             {edu.dateRange} | {edu.location}
           </p>
           <ul style={{ paddingLeft: "18px", margin: 0, listStyleType: "disc" }}>
@@ -206,10 +206,10 @@ export default function ExperiencesPage() {
         style={{
           fontSize: "24px",
           fontWeight: 600,
-          color: "#333333",
+          color: "var(--text-primary)",
           marginBottom: "16px",
           paddingBottom: "6px",
-          borderTop: "1px solid #eaeaea",
+          borderTop: "1px solid var(--border-primary)",
           paddingTop: "12px",
           animationDelay: "120ms",
         }}
@@ -222,20 +222,20 @@ export default function ExperiencesPage() {
           className="stagger-in"
           style={{ marginBottom: "28px", animationDelay: `${120 + (idx + 1) * 60}ms` }}
         >
-          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#333333", marginBottom: "2px" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "2px" }}>
             <a href={job.companyLink} className="inline-link">
               {job.company}
             </a>
           </h3>
-          <p style={{ fontSize: "16px", color: "#333333", marginBottom: "2px" }}>
+          <p style={{ fontSize: "16px", color: "var(--text-primary)", marginBottom: "2px" }}>
             {job.role}
           </p>
           {job.supervisor && (
-            <p style={{ fontSize: "13px", color: "#666666", marginBottom: "2px" }}>
+            <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "2px" }}>
               {job.supervisor}
             </p>
           )}
-          <p style={{ fontSize: "13px", color: "#999999", marginBottom: "8px" }}>
+          <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "8px" }}>
             {job.dateRange} | {job.location}
           </p>
           {job.description && (
@@ -243,7 +243,7 @@ export default function ExperiencesPage() {
               style={{
                 fontSize: "16px",
                 lineHeight: 1.7,
-                color: "#333333",
+                color: "var(--text-primary)",
                 marginBottom: "8px",
                 fontStyle: "italic",
               }}
@@ -259,7 +259,7 @@ export default function ExperiencesPage() {
                   style={{
                     fontSize: "16px",
                     lineHeight: 1.7,
-                    color: "#333333",
+                    color: "var(--text-primary)",
                     marginBottom: "6px",
                   }}
                 >
@@ -277,10 +277,10 @@ export default function ExperiencesPage() {
         style={{
           fontSize: "24px",
           fontWeight: 600,
-          color: "#333333",
+          color: "var(--text-primary)",
           marginBottom: "16px",
           paddingBottom: "6px",
-          borderTop: "1px solid #eaeaea",
+          borderTop: "1px solid var(--border-primary)",
           paddingTop: "12px",
           animationDelay: "180ms",
         }}
@@ -293,20 +293,20 @@ export default function ExperiencesPage() {
           className="stagger-in"
           style={{ marginBottom: "28px", animationDelay: `${180 + (idx + 1) * 60}ms` }}
         >
-          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#333333", marginBottom: "2px" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "2px" }}>
             <a href={job.companyLink} className="inline-link">
               {job.company}
             </a>
           </h3>
-          <p style={{ fontSize: "16px", color: "#333333", marginBottom: "2px" }}>
+          <p style={{ fontSize: "16px", color: "var(--text-primary)", marginBottom: "2px" }}>
             {job.role}
           </p>
           {job.supervisor && (
-            <p style={{ fontSize: "13px", color: "#666666", marginBottom: "2px" }}>
+            <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "2px" }}>
               {job.supervisor}
             </p>
           )}
-          <p style={{ fontSize: "13px", color: "#999999", marginBottom: "8px" }}>
+          <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "8px" }}>
             {job.dateRange} | {job.location}
           </p>
           {job.description && (
@@ -314,7 +314,7 @@ export default function ExperiencesPage() {
               style={{
                 fontSize: "16px",
                 lineHeight: 1.7,
-                color: "#333333",
+                color: "var(--text-primary)",
                 marginBottom: "8px",
                 fontStyle: "italic",
               }}

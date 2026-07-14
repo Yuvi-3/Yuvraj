@@ -82,14 +82,14 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
   };
 
   return (
-    <div style={{ maxWidth: "680px", margin: "0 auto", padding: "32px 24px 64px" }}>
+    <div style={{ maxWidth: "680px", margin: "0 auto", padding: "32px 16px 64px" }}>
       {/* Blog Title */}
       <div className="stagger-in" style={{ animationDelay: "0ms" }}>
         <h1
           style={{
             fontSize: "28px",
             fontWeight: 700,
-            color: "#b833ff",
+            color: "var(--accent)",
             marginBottom: "4px",
           }}
         >
@@ -98,7 +98,7 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
         <p
           style={{
             fontSize: "16px",
-            color: "#666666",
+            color: "var(--text-secondary)",
             marginBottom: "24px",
           }}
         >
@@ -111,7 +111,7 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
         className="stagger-in"
         style={{
           animationDelay: "60ms",
-          border: "1px solid #eaeaea",
+          border: "1px solid var(--border-primary)",
           padding: "20px",
           marginBottom: "24px",
           borderRadius: "8px",
@@ -123,20 +123,20 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
           onTagClick={handleTagClick}
         />
       </div>
-      <div style={{ borderTop: "1px solid #eaeaea", marginBottom: "24px" }} />
+      <div style={{ borderTop: "1px solid var(--border-primary)", marginBottom: "24px" }} />
 
       {/* Selected tag indicator */}
       {selectedTag && (
         <div className="mb-6 flex items-center gap-2">
-          <span style={{ fontSize: "14px", color: "#666666" }}>
+          <span style={{ fontSize: "14px", color: "var(--text-secondary)" }}>
             Filtered by:
           </span>
           <span
             className="inline-flex items-center gap-1 px-2 py-0.5 rounded"
             style={{
               fontSize: "13px",
-              color: "#b833ff",
-              backgroundColor: "#f8f0ff",
+              color: "var(--accent)",
+              backgroundColor: "var(--accent-bg)",
             }}
           >
             #{selectedTag}
@@ -149,7 +149,7 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
                 border: "none",
                 background: "none",
                 cursor: "pointer",
-                color: "#b833ff",
+                color: "var(--accent)",
                 fontSize: "16px",
                 lineHeight: 1,
                 marginLeft: "4px",
@@ -164,7 +164,7 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
       {/* Blog Posts */}
       <div className="mb-8">
         {paginatedPosts.length === 0 && (
-          <p style={{ color: "#999999", fontSize: "16px" }}>
+          <p style={{ color: "var(--text-muted)", fontSize: "16px" }}>
             No posts found for this tag.
           </p>
         )}
@@ -181,14 +181,14 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
       {totalPages > 1 && (
         <div
           className="stagger-in flex items-center justify-center gap-3"
-          style={{ animationDelay: "120ms", borderTop: "1px solid #eaeaea", paddingTop: "20px" }}
+          style={{ animationDelay: "120ms", borderTop: "1px solid var(--border-primary)", paddingTop: "20px" }}
         >
           <button
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
             style={{
               fontSize: "14px",
-              color: currentPage === 1 ? "#cccccc" : "#b833ff",
+              color: currentPage === 1 ? "var(--text-muted)" : "var(--accent)",
               border: "none",
               background: "none",
               cursor: currentPage === 1 ? "default" : "pointer",
@@ -203,7 +203,7 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
               onClick={() => handlePageChange(page)}
               style={{
                 fontSize: "14px",
-                color: currentPage === page ? "#b833ff" : "#666666",
+                color: currentPage === page ? "var(--accent)" : "var(--text-secondary)",
                 border: "none",
                 background: "none",
                 cursor: "pointer",
@@ -222,7 +222,7 @@ export default function BlogPage({ onOpenPost, onBlogData }: BlogPageProps) {
             disabled={currentPage === totalPages}
             style={{
               fontSize: "14px",
-              color: currentPage === totalPages ? "#cccccc" : "#b833ff",
+              color: currentPage === totalPages ? "var(--text-muted)" : "var(--accent)",
               border: "none",
               background: "none",
               cursor: currentPage === totalPages ? "default" : "pointer",
@@ -247,7 +247,7 @@ function BlogListItem({
   return (
     <div
       className="py-5 hover-card"
-      style={{ borderBottom: "1px solid #f0f0f0" }}
+      style={{ borderBottom: "1px solid var(--border-secondary)" }}
     >
       <h3
         className="cursor-pointer hover:underline"
@@ -255,7 +255,7 @@ function BlogListItem({
         style={{
           fontSize: "20px",
           fontWeight: 600,
-          color: "#333333",
+          color: "var(--text-primary)",
           marginBottom: "6px",
           lineHeight: 1.3,
         }}
@@ -265,7 +265,7 @@ function BlogListItem({
       <p
         style={{
           fontSize: "16px",
-          color: "#333333",
+          color: "var(--text-primary)",
           lineHeight: 1.7,
           marginBottom: "8px",
         }}
@@ -273,20 +273,20 @@ function BlogListItem({
         {post.description}
       </p>
       <div className="flex items-center gap-2 flex-wrap" style={{ fontSize: "13px" }}>
-        <span style={{ color: "#999999" }}>{post.readTime}</span>
-        <span style={{ color: "#dddddd" }}>&bull;</span>
-        <span style={{ color: "#999999" }}>{post.date}</span>
-        <span style={{ color: "#dddddd" }}>&bull;</span>
+        <span style={{ color: "var(--text-muted)" }}>{post.readTime}</span>
+        <span style={{ color: "var(--divider)" }}>&bull;</span>
+        <span style={{ color: "var(--text-muted)" }}>{post.date}</span>
+        <span style={{ color: "var(--divider)" }}>&bull;</span>
         {post.tags.map((tag) => (
           <span
             key={tag}
-            style={{ color: "#b833ff" }}
+            style={{ color: "var(--accent)" }}
           >
             #{tag}
           </span>
         ))}
-        <span style={{ color: "#dddddd" }}>&bull;</span>
-        <span style={{ color: "#999999" }}>{post.category}</span>
+        <span style={{ color: "var(--divider)" }}>&bull;</span>
+        <span style={{ color: "var(--text-muted)" }}>{post.category}</span>
       </div>
     </div>
   );

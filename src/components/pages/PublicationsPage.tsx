@@ -73,10 +73,10 @@ export default function PublicationsPage() {
   return (
     <div style={{ maxWidth: "680px", margin: "0 auto", padding: "32px 24px 64px" }}>
       <div className="stagger-in" style={{ animationDelay: "0ms" }}>
-        <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#b833ff", marginBottom: "4px" }}>
+        <h1 style={{ fontSize: "28px", fontWeight: 700, color: "var(--accent)", marginBottom: "4px" }}>
           publications
         </h1>
-        <p style={{ fontSize: "16px", color: "#666666", marginBottom: "24px" }}>
+        <p style={{ fontSize: "16px", color: "var(--text-secondary)", marginBottom: "24px" }}>
           research papers, technical write-ups, and future publications in ML, quantitative finance, and AI ...
         </p>
       </div>
@@ -90,31 +90,31 @@ export default function PublicationsPage() {
               animationDelay: `${(idx + 1) * 60}ms`,
               marginBottom: "20px",
               paddingBottom: "16px",
-              borderBottom: idx < displayData.length - 1 ? "1px solid #f0f0f0" : "none",
+              borderBottom: idx < displayData.length - 1 ? "1px solid var(--border-secondary)" : "none",
               lineHeight: 1.7,
             }}
           >
-            <p style={{ fontSize: "16px", color: "#333333", fontWeight: 500, marginBottom: "4px" }}>
+            <p style={{ fontSize: "16px", color: "var(--text-primary)", fontWeight: 500, marginBottom: "4px" }}>
               {pub.title}
             </p>
-            <p style={{ fontSize: "14px", color: "#666666", marginBottom: "4px" }}>
+            <p style={{ fontSize: "14px", color: "var(--text-secondary)", marginBottom: "4px" }}>
               {pub.authors}
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
               {pub.venue && (
-                <span style={{ fontSize: "13px", color: "#999999", fontStyle: "italic" }}>
+                <span style={{ fontSize: "13px", color: "var(--text-muted)", fontStyle: "italic" }}>
                   {pub.venue}
                 </span>
               )}
-              {pub.venue && <span style={{ color: "#dddddd" }}>·</span>}
-              <span style={{ fontSize: "13px", color: "#999999" }}>{pub.year}</span>
+              {pub.venue && <span style={{ color: "var(--divider)" }}>·</span>}
+              <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>{pub.year}</span>
               {pub.abstract && (
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     setShowAbstract(pub.id);
                   }}
-                  style={{ fontSize: "12px", color: "#b833ff", border: "1px solid #e0d0f0", borderRadius: "3px", padding: "1px 6px", background: "none", cursor: "pointer" }}
+                  style={{ fontSize: "12px", color: "var(--accent)", border: "1px solid var(--border-tertiary)", borderRadius: "3px", padding: "1px 6px", background: "none", cursor: "pointer" }}
                 >
                   ABS
                 </button>
@@ -124,7 +124,7 @@ export default function PublicationsPage() {
                   href={pub.pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: "12px", color: "#b833ff", border: "1px solid #e0d0f0", borderRadius: "3px", padding: "1px 6px", textDecoration: "none" }}
+                  style={{ fontSize: "12px", color: "var(--accent)", border: "1px solid var(--border-tertiary)", borderRadius: "3px", padding: "1px 6px", textDecoration: "none" }}
                 >
                   HTML
                 </a>
@@ -134,9 +134,9 @@ export default function PublicationsPage() {
         ))}
       </ol>
 
-      <div style={{ marginTop: "32px", padding: "24px", backgroundColor: "#fafafa", borderRadius: "8px", border: "1px dashed #e0e0e0" }}>
-        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#666666" }}>
-          <b style={{ color: "#333333" }}>Note:</b> More publications are in progress. I am actively working on research in machine learning for finance, quantitative trading systems, and AI developer tools. Check back for updates or follow my blog for research notes and pre-prints.
+      <div style={{ marginTop: "32px", padding: "24px", backgroundColor: "var(--bg-secondary)", borderRadius: "8px", border: "1px dashed var(--border-tertiary)" }}>
+        <p style={{ fontSize: "14px", lineHeight: 1.7, color: "var(--text-secondary)" }}>
+          <b style={{ color: "var(--text-primary)" }}>Note:</b> More publications are in progress. I am actively working on research in machine learning for finance, quantitative trading systems, and AI developer tools. Check back for updates or follow my blog for research notes and pre-prints.
         </p>
       </div>
 
@@ -150,7 +150,7 @@ export default function PublicationsPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.4)",
+            backgroundColor: "var(--modal-overlay)",
             zIndex: 50,
             display: "flex",
             alignItems: "center",
@@ -163,7 +163,7 @@ export default function PublicationsPage() {
             style={{
               maxWidth: "600px",
               width: "100%",
-              backgroundColor: "#ffffff",
+              backgroundColor: "var(--bg-primary)",
               padding: "32px",
               borderRadius: "8px",
               maxHeight: "80vh",
@@ -174,7 +174,7 @@ export default function PublicationsPage() {
               style={{
                 fontSize: "18px",
                 fontWeight: 600,
-                color: "#333333",
+                color: "var(--text-primary)",
                 marginBottom: "16px",
                 lineHeight: 1.4,
               }}
@@ -185,7 +185,7 @@ export default function PublicationsPage() {
               style={{
                 fontSize: "16px",
                 lineHeight: 1.7,
-                color: "#333333",
+                color: "var(--text-primary)",
                 marginBottom: "24px",
               }}
             >
@@ -195,8 +195,8 @@ export default function PublicationsPage() {
               onClick={() => setShowAbstract(null)}
               style={{
                 fontSize: "14px",
-                color: "#b833ff",
-                border: "1px solid #e0d0f0",
+                color: "var(--accent)",
+                border: "1px solid var(--border-tertiary)",
                 borderRadius: "4px",
                 padding: "6px 16px",
                 background: "none",
