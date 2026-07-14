@@ -1,0 +1,17 @@
+export default function Footer() {
+  return (
+    <footer
+      className="w-full mt-auto"
+      style={{ borderTop: "1px solid #eaeaea" }}
+    >
+      <div style={{ maxWidth: "680px", margin: "0 auto", padding: "24px" }}>
+        <p
+          className="text-center"
+          style={{ fontSize: "13px", color: "#999999" }}
+        >
+          &copy; Copyright 2026 Yuvraj Dutt. Built with Next.js, TypeScript, and Tailwind CSS.
+        </p>
+      </div>
+    </footer>
+  );
+}

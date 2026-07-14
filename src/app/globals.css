@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #ffffff;
+  color: #333333;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATION 1: Staggered fade-in
+   ═══════════════════════════════════════ */
+@keyframes staggerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-in {
+  opacity: 0;
+  animation: staggerFadeIn 0.35s ease forwards;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATION 2: Nav underline slide
+   ═══════════════════════════════════════ */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: #b833ff;
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.nav-active::after {
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATION 3: Smooth link hover
+   ═══════════════════════════════════════ */
+a.inline-link {
+  color: #b833ff;
+  text-decoration: none;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+}
+
+a.inline-link:hover {
+  color: #a028e0;
+  text-decoration-color: #a028e0;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATION 4: Card hover lift
+   ═══════════════════════════════════════ */
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ═══════════════════════════════════════
+   ANIMATION 5: Social icon scale
+   ═══════════════════════════════════════ */
+.social-icon {
+  transition: transform 0.15s ease, color 0.15s ease;
+  display: inline-block;
+}
+
+.social-icon:hover {
+  transform: scale(1.15);
+  color: #333333 !important;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATION 6: About image hover zoom
+   ═══════════════════════════════════════ */
+.about-img-wrap {
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f0f0f0;
+}
+
+.about-img-wrap img {
+  transition: transform 0.4s ease;
+}
+
+.about-img-wrap:hover img {
+  transform: scale(1.04);
+}
