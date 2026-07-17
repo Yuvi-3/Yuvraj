@@ -46,6 +46,9 @@ export async function GET() {
       "rotarion",
       "quant-tool",
       "quant-tools",
+      "Aether",
+      "Custom-MCU",
+      "A8-Alpha",
     ];
 
     const mainProjects = ownRepos.filter((r) =>
